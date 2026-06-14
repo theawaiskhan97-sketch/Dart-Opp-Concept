@@ -1,40 +1,39 @@
-// ===== Blueprint (Class) =====
+import 'dart:io';
+
+// Car class (blueprint)
 class Car {
-  // Fields — data the car stores
   String brand;
-  String color;
   int year;
-  bool isRunning = false; // starts as OFF
 
-  // Constructor — runs when you create a Car
-  Car(this.brand, this.color, this.year);
+  // Constructor
+  Car(this.brand, this.year);
 
-  // Methods — things the car can do
-  void drive() {
-    isRunning = true;
-    print('$brand is now driving!');
+  // This method checks if the car is old or new
+  String checkCarStatus() {
+    if (year < 2015) {
+      return 'old';
+    } else if (year >= 2026) {
+      return 'new';
+    } else {
+      return 'in the middle range';
+    }
   }
 
+  // This method prints the car details
   void showInfo() {
-    print('$year $color $brand | Running: $isRunning');
+    print('Car Brand: $brand');
+    print('Car Year: $year');
+    print('Car Status: ${checkCarStatus()}');
   }
 }
 
-// ===== main() — program starts here =====
 void main() {
-  // Create object 1 — my car
-  var myCar = Car('Toyota', 'Red', 2020);
+  print('Enter car brand: ');
+  String brand = stdin.readLineSync() ?? '';
 
-  // Create object 2 — friend's car
-  var friendCar = Car('Honda', 'Blue', 2022);
+  print('Enter car year: ');
+  int year = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
 
-  // Use myCar's methods
-  myCar.showInfo(); // before driving
-  myCar.drive();
-  myCar.showInfo(); // after driving — isRunning is now true
-
-  print('---');
-
-  // Use friendCar's methods
-  friendCar.showInfo();
+  Car myCar = Car(brand, year);
+  myCar.showInfo();
 }
